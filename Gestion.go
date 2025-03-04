@@ -5,7 +5,7 @@ type Gestion struct {
 	Montant   int
 	Type      string
 	Categorie string
-	Date      int
+	Date      string
 }
 
 // Struct pour trié les revenus et les dépenses
