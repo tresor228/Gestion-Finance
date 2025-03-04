@@ -75,16 +75,16 @@ func (g *GestionList) Enregistrement() error {
 
 // Affichage du contenu CSV (Transaction)
 func (g *GestionList) Affich_Transaction() {
-	fmt.Println("	categorie	|	Montant	|	Type	|	Date	")
+	fmt.Println("	Date	|	Type	|	categorie	|	Montant		")
 	if g.Revenue != nil {
 		for _, Gestion := range *g.Revenue {
-			fmt.Printf(" %s	|	%d	|	%s	|	%s	", Gestion.Categorie, Gestion.Montant, Gestion.Type, Gestion.Date)
+			fmt.Printf(" %s	|	%s	|	%s	|	%d	", Gestion.Date, Gestion.Type, Gestion.Categorie, Gestion.Montant)
 		}
 	}
 
 	if g.Depense != nil {
 		for _, Gestion := range *g.Depense {
-			fmt.Printf(" %s	|	%d	|	%s	|	%s	", Gestion.Categorie, Gestion.Montant, Gestion.Type, Gestion.Date)
+			fmt.Printf(" %s	|	%s	|	%s	|	%d	", Gestion.Date, Gestion.Type, Gestion.Categorie, Gestion.Montant)
 		}
 	}
 }
