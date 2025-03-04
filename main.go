@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
-	/*"os"*/)
+	"os"
+)
 
 // Ajout des Transactions
 func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie string, date string) error {
@@ -28,11 +30,30 @@ func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie stri
 		*g.Depense = append(*g.Depense, Gestion{montant, Type, categorie, date})
 	}
 
-	//Ajout dans le fichier csv
+	//Insertion des données dans le fichier csv
+	err := g.Enregistrement()
+	if err != nil {
+		return fmt.Errorf("Erreur d'enregistrement")
+	}
+
+	return nil
 
 }
 
-//Fonction pour l'enregistement dans le fichier csv
+// Fonction pour l'enregistement dans le fichier csv
+func (g *GestionList) Enregistrement() error {
+	// Ouverture du fichier
+	file, err := os.Open("data.csv", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		return fmt.Errorf("Erreur à l'ouverture du fichier")
+	}
+	defer file.Close()
+
+	// Ecriture dans le fichier
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+}
 
 // Affichage du contenu CSV (Transaction)
 func (g *GestionList) Affich_Transaction() {
