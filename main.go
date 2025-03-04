@@ -20,7 +20,7 @@ func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie stri
 
 	// Gestion d'erreur
 	if Type != "Revenue" && Type != "Dépense" {
-		return fmt.Errorf("Type de transaction invalide ")
+		return fmt.Errorf("type de transaction Disponible : Revenue ou Dépense")
 	}
 
 	//classement du type
@@ -33,7 +33,7 @@ func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie stri
 	//Insertion des données dans le fichier csv
 	err := g.Enregistrement()
 	if err != nil {
-		return fmt.Errorf("Erreur d'enregistrement")
+		return fmt.Errorf("erreur d'enregistrement")
 	}
 
 	return nil
@@ -43,15 +43,33 @@ func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie stri
 // Fonction pour l'enregistement dans le fichier csv
 func (g *GestionList) Enregistrement() error {
 	// Ouverture du fichier
-	file, err := os.Open("data.csv", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	file, err := os.OpenFile("data.csv", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+
 	if err != nil {
-		return fmt.Errorf("Erreur à l'ouverture du fichier")
+		return fmt.Errorf("erreur à l'ouverture du fichier")
 	}
 	defer file.Close()
 
-	// Ecriture dans le fichier
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
+
+	// Parcours et écriture des transactions dans le fichier
+	for _, Gestion := range *g.Revenue {
+		err := writer.Write([]string{Gestion.Date, Gestion.Type, Gestion.Categorie, fmt.Sprintf("%d", Gestion.Montant)})
+		if err != nil {
+			return fmt.Errorf("erreur lors de l'écriture des transactions")
+		}
+	}
+	for _, Gestion := range *g.Depense {
+		err := writer.Write([]string{Gestion.Date, Gestion.Type, Gestion.Categorie, fmt.Sprintf("%d", Gestion.Montant)})
+		if err != nil {
+			return fmt.Errorf("erreur lors de l'écriture des transactions")
+		}
+	}
+
+	fmt.Println("Transactions enregistrées avec succès !")
+
+	return nil
 
 }
 
