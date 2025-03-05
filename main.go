@@ -91,4 +91,49 @@ func (g *GestionList) Affich_Transaction() {
 
 func main() {
 
+	var montant int
+	var Type, categorie, date string
+
+	//Liste pour faire le choix de Menu
+	fmt.Println("============= Menu de Gestion de Transaction =============")
+	fmt.Println("1. Ajout_Transaction")
+	fmt.Println("2. Affich_Transaction")
+	/*fmt.Println("3. Supprimer_Transaction")
+	fmt.Println("4. Modifier_Transaction")*/
+	fmt.Println("Veuillez choisir une option : ")
+
+	var choix int
+	fmt.Scan(&choix)
+
+	switch choix {
+	case 1:
+		// Saisi des Transactions
+		fmt.Println("Veuillez saisir le montant : ")
+		fmt.Scan(&montant)
+
+		fmt.Println("Veuillez saisir le type de transaction : ")
+		fmt.Scan(&Type)
+
+		fmt.Println("Veuillez saisir la catégorie : ")
+		fmt.Scan(&categorie)
+
+		fmt.Println("Veuillez saisir la date : ")
+		fmt.Scan(&date)
+
+		// Ajout des Transactions
+		gestion := GestionList{}
+		err := gestion.Ajout_Transaction(montant, Type, categorie, date)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+	case 2:
+		// Affichage des Transactions
+		gestion := GestionList{}
+		gestion.Affich_Transaction()
+
+	default:
+		fmt.Println("Votre entré est invalide")
+
+	}
 }
