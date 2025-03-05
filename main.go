@@ -96,8 +96,8 @@ func main() {
 
 	//Liste pour faire le choix de Menu
 	fmt.Println("============= Menu de Gestion de Transaction =============")
-	fmt.Println("1. Ajout_Transaction")
-	fmt.Println("2. Affich_Transaction")
+	fmt.Println("1. Ajoutez une Transaction")
+	fmt.Println("2. Affichez une Transaction")
 	/*fmt.Println("3. Supprimer_Transaction")
 	fmt.Println("4. Modifier_Transaction")*/
 	fmt.Println("Veuillez choisir une option : ")
