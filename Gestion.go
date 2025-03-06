@@ -2,10 +2,10 @@ package main
 
 // Struct de Gestion
 type Gestion struct {
-	Montant   int
+	Date      string
 	Type      string
 	Categorie string
-	Date      string
+	Montant   int
 }
 
 // Struct pour trié les revenus et les dépenses

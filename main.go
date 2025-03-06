@@ -7,7 +7,7 @@ import (
 )
 
 // Ajout des Transactions
-func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie string, date string) error {
+func (g *GestionList) Ajout_Transaction(date string, Type string, categorie string, montant int) error {
 
 	// Initialisation des listes Dans le tableau
 	if g.Revenue == nil {
@@ -19,15 +19,15 @@ func (g *GestionList) Ajout_Transaction(montant int, Type string, categorie stri
 	}
 
 	// Gestion d'erreur
-	if Type != "Revenue" && Type != "Dépense" {
-		return fmt.Errorf("type de transaction Disponible : Revenue ou Dépense")
+	if Type != "Revenue" && Type != "Depense" {
+		return fmt.Errorf("type de transaction Disponible : Revenue ou Depense")
 	}
 
 	//classement du type
 	if Type == "revenue" {
-		*g.Revenue = append(*g.Revenue, Gestion{montant, Type, categorie, date})
+		*g.Revenue = append(*g.Revenue, Gestion{date, Type, categorie, montant})
 	} else if Type == "depense" {
-		*g.Depense = append(*g.Depense, Gestion{montant, Type, categorie, date})
+		*g.Depense = append(*g.Depense, Gestion{date, Type, categorie, montant})
 	}
 
 	//Insertion des données dans le fichier csv
@@ -108,8 +108,8 @@ func main() {
 	switch choix {
 	case 1:
 		// Saisi des Transactions
-		fmt.Println("Veuillez saisir le montant : ")
-		fmt.Scan(&montant)
+		fmt.Println("Veuillez saisir la date : ")
+		fmt.Scan(&date)
 
 		fmt.Println("Veuillez saisir le type de transaction : ")
 		fmt.Scan(&Type)
@@ -117,12 +117,12 @@ func main() {
 		fmt.Println("Veuillez saisir la catégorie : ")
 		fmt.Scan(&categorie)
 
-		fmt.Println("Veuillez saisir la date : ")
-		fmt.Scan(&date)
+		fmt.Println("Veuillez saisir le montant : ")
+		fmt.Scan(&montant)
 
 		// Ajout des Transactions
 		gestion := GestionList{}
-		err := gestion.Ajout_Transaction(montant, Type, categorie, date)
+		err := gestion.Ajout_Transaction(date, Type, categorie, montant)
 		if err != nil {
 			fmt.Println(err)
 		}
